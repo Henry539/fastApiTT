@@ -56,13 +56,13 @@ def check_data_token_exist(db: Session, r_clone_token: str):
 
 # <----- Get all unused folder Function ----->
 def check_data_unused_folder(db: Session):
-    data = db.query(database.Folder).filter(database.Folder.token_id is None).all()
+    data = db.query(database.Folder).filter(database.Folder.token_id == None).all()
     return data
 
 
 # <----- Get all unused token Function ----->
 def check_data_unused_token(db: Session):
-    data = db.query(database.Token).filter(database.Token.folder_id is None).all()
+    data = db.query(database.Token).filter(database.Token.folder_id == None).all()
     return data
 
 
@@ -95,10 +95,10 @@ def check_mapping_token_exist(db: Session, r_clone_token: str):
 # <----- Get all used folder-token Function ----->
 def get_all_mapping_token_folder(db: Session):
     list_all_mapping = []
-    data_folder_result = db.query(database.Folder).filter(database.Folder.token_id is not None).all()
+    data_folder_result = db.query(database.Folder).filter(database.Folder.token_id != None).all()
     for folder in data_folder_result:
         list_once_mapping = []
-        data_token_result = db.query(database.Token).filter(database.Token.r_clone_token == folder.folder_id).first()
+        data_token_result = db.query(database.Token).filter(database.Token.r_clone_token == folder.token_id).first()
         list_once_mapping.append(folder)
         list_once_mapping.append(data_token_result)
         list_all_mapping.append(list_once_mapping)
