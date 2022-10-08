@@ -13,14 +13,16 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
 
-
 # Dependency
 def get_db():
     db = SessionLocal()
-    try: yield db
-    finally: db.close()
+    try:
+        yield db
+    finally:
+        db.close()
 
 
+# Class Folder ORM
 class Folder(Base):
     __tablename__ = "FOLDER_ID"
 
@@ -29,6 +31,8 @@ class Folder(Base):
     user_id = Column(String)
     token_id = Column(String, ForeignKey("TOKEN.r_clone_token"))
 
+
+# Class Token ORM
 class Token(Base):
     __tablename__ = "TOKEN"
 
